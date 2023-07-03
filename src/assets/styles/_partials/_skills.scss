@@ -68,3 +68,40 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .skills {
+    &-container {
+      padding: 30rem 12rem 0 12rem;
+      flex-direction: column;
+    }
+    &-header {
+      margin-bottom: 5rem;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      &-banner {
+        width: 100rem;
+      }
+      &-text {
+        left: 50%;
+      }
+    }
+    &-content {
+      width: 80%;
+    }
+  }
+
+  .skill-list {
+    &-container {
+    }
+    &-head {
+      h3 {
+        font-size: 6rem;
+      }
+    }
+    &-item {
+      font-size: 4rem;
+    }
+  }
+}

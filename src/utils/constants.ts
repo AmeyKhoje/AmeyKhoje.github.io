@@ -10,8 +10,8 @@ export const EXPERIENCE_LIST = [
     period: 'Dec 2020 - Sept 2021',
   },
   {
-    designation: 'Software Developer',
-    company: 'Symtotal Pvt. Ltd.',
+    designation: 'Front End Developer',
+    company: 'Achieveee Design and Development',
     period: 'Jan 2020 - Dec 2020',
   },
 ];

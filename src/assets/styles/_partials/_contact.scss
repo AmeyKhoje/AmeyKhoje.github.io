@@ -46,10 +46,32 @@
     position: absolute;
     right: 30rem;
     top: 23%;
-    transform: rotate(10deg);
+    transform: rotate(8deg);
     img {
       width: 100%;
       filter: grayscale(80%);
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .contact {
+    display: flex;
+    align-items: center;
+  }
+  .contact-container {
+    height: 40%;
+  }
+  .contact-content-name h4 {
+    font-size: 8rem;
+  }
+  .contact-address-title p,
+  .contact-address-mobile p,
+  .contact-address-email p {
+    font-size: 5rem;
+  }
+  .contact-img {
+    top: 42%;
+    width: 45rem;
   }
 }

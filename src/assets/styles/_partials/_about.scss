@@ -59,3 +59,23 @@
     }
   }
 }
+
+@media screen and (max-width: 768px) {
+  .about-me-description-flex-text p {
+    font-size: 5rem;
+  }
+  .about-me-description-flex-text {
+    width: 45%;
+  }
+  .about-me-title-flex-img {
+    width: 40rem;
+  }
+  .about-me-description-flex-img {
+    width: 40rem;
+    top: 15rem;
+  }
+  .about-me-description-flex {
+    padding-left: 40rem;
+    padding-top: 20rem;
+  }
+}

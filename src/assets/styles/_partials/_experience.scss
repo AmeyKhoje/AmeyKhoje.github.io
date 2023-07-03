@@ -5,6 +5,7 @@
   position: relative;
   &-container {
     padding: 6rem 12rem;
+    position: relative;
   }
   &-heading {
     padding-bottom: 4rem;
@@ -46,5 +47,22 @@
       width: 100%;
       filter: grayscale(80%);
     }
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .work-exp-content-card .designation {
+    font-size: 7rem;
+  }
+  .work-exp-content-card .company {
+    font-size: 5.5rem;
+  }
+  .work-exp-content-card .period {
+    font-size: 4.3rem;
+  }
+  .work-exp-img {
+    width: 105rem;
+    top: -60rem;
+    bottom: auto;
   }
 }
