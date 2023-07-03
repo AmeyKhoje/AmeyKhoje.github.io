@@ -1,8 +1,8 @@
 {
-  "name": "generic-components",
+  "name": "amey-portfolio",
   "version": "1.0.0",
   "description": "Amey Khoje Portfolio",
-  "homepage": "https://github.com/AmeyKhoje/portfolio-2023.git",
+  "homepage": "https://github.com/AmeyKhoje/AmeyKhoje.github.io.git",
   "main": "index.js",
   "scripts": {
     "start": "webpack serve -- --env mode=development",
@@ -10,7 +10,7 @@
     "lint": "eslint --ext .js,.ts,.jsx,.tsx src",
     "format": "npm run lint --fix & npm prettier --write 'src/**/*.{js,jsx,ts,tsx}'",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d dist"
   },
   "keywords": [],
   "author": "",
