@@ -2,7 +2,7 @@ import BannerMe from 'assets/images/banner_me.jpg';
 
 const Banner = () => {
   return (
-    <section className="banner fit-height fit-width o-hidden">
+    <section className="banner fit-height fit-width o-hidden section">
       <div className="banner-container sp-relative">
         <div className="banner-img">
           <div className="banner-my-name">

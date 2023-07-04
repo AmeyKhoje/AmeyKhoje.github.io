@@ -2,7 +2,7 @@ import ContactMe from 'assets/images/contact.jpg';
 
 const Contact = () => {
   return (
-    <div className="contact fit-height fit-width o-hidden">
+    <div className="contact fit-height fit-width o-hidden section">
       <div className="contact-container">
         <div className="contact-content">
           <div className="contact-content-header">

@@ -4,7 +4,7 @@ import { SkillsInterface } from 'src/interfaces/Components';
 
 const Skills = ({ set }: SkillsInterface) => {
   return (
-    <div className="skills fit-height fit-width o-hidden">
+    <div className="skills fit-height fit-width o-hidden section">
       <div className="skills-container">
         <div className="skills-header">
           <div className="skills-header-banner">

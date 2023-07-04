@@ -3,7 +3,7 @@ import AboutLook from 'assets/images/about_look.jpg';
 
 const About = () => {
   return (
-    <div className="about fit-height fit-width o-hidden">
+    <div className="about fit-height fit-width o-hidden section">
       <div className="about-container">
         <div className="about-me-title-flex">
           <div className="about-me-title-flex-heading">

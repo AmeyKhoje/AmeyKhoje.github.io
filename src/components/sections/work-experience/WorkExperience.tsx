@@ -3,7 +3,7 @@ import ExpImg from 'assets/images/exp.png';
 
 const WorkExperience = () => {
   return (
-    <div className="work-exp fit-height fit-width o-hidden">
+    <div className="work-exp fit-height fit-width o-hidden section">
       <div className="work-exp-container">
         <div className="work-exp-heading">
           <h1 className="text-head font-montserrat">Work Experience</h1>

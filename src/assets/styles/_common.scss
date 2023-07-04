@@ -47,3 +47,7 @@ ul {
 .text-uppercase {
   text-transform: uppercase;
 }
+
+* {
+  user-select: none;
+}
