@@ -92,8 +92,21 @@ function touchHandler(event: TouchEvent) {
 
   let newPos = event.changedTouches[0].clientY;
 
-  // let e = window.event || event;
-  // let delta = Math.max(-1, Math.min(1, event.wheelDelta || -e.detail));
+  const htmlEl = document.getElementById('main');
+  const bodyEl = document.getElementById('main-body');
+
+  if (currentActiveIndex - 1 === 0 && newPos > pos) {
+    if (htmlEl && bodyEl) {
+      htmlEl.style.overscrollBehavior = 'auto';
+      bodyEl.style.overscrollBehavior = 'auto';
+    }
+  } else {
+    if (htmlEl && bodyEl) {
+      htmlEl.style.overscrollBehavior = 'none';
+      bodyEl.style.overscrollBehavior = 'none';
+    }
+  }
+
   if (newPos > pos) {
     if (currentActiveIndex === 0) {
       return;
@@ -120,6 +133,14 @@ function touchHandler(event: TouchEvent) {
 export function applySinglePageScroll() {
   const sections = document.querySelectorAll<HTMLDivElement>('.section');
   sections[0].classList.add('active');
+
+  const htmlEl = document.getElementById('main');
+  const bodyEl = document.getElementById('main-body');
+
+  if (htmlEl && bodyEl) {
+    htmlEl.style.overscrollBehavior = 'auto';
+    bodyEl.style.overscrollBehavior = 'auto';
+  }
 
   window.addEventListener('wheel', (event) =>
     debounce(() => mouseWheelHndler(event), 250)
