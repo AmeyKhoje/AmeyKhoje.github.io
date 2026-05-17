@@ -1,22 +1,41 @@
+@use './variables';
+@use './common';
+@use './_partials/section';
+@use './_partials/banner';
+@use './_partials/about';
+@use './_partials//experience';
+@use './_partials/skills';
+@use './_partials/contact';
+
 html {
   font-size: 0.525vw;
 }
 
 html,
 body {
-  margin: 0;
-  padding: 0;
+  overflow: hidden;
+
+  overscroll-behavior: none;
+
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  perspective: 2000px;
+  perspective-origin: center;
 }
 
 div {
   font-size: 20px;
 }
 
-@import './variables';
-@import './common';
-@import './_partials/section';
-@import './_partials/banner';
-@import './_partials/about';
-@import './_partials//experience';
-@import './_partials/skills';
-@import './_partials/contact';
+.section-container {
+  position: relative;
+  height: 100vh;
+  overflow: hidden;
+
+  perspective: 1800px;
+}
+
+

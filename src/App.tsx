@@ -13,7 +13,7 @@ const App = () => {
     applySinglePageScroll();
   }, []);
   return (
-    <div>
+    <div className="section-container">
       <Banner />
       <About />
       <WorkExperience />

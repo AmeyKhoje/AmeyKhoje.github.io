@@ -1,156 +1,152 @@
-let lastScrollTop = 0;
-let debounceTimer: any;
-let pos = 0;
+let touchStartY = 0;
+let isAnimating = false;
 
-const debounce = (callback: Function, time: number) => {
-  window.clearTimeout(debounceTimer);
-  debounceTimer = window.setTimeout(callback, time);
-};
+const ANIMATION_TIME = 700;
 
-function handleScroll() {
-  const sections = document.querySelectorAll<HTMLDivElement>('.section');
-  const elements = document.querySelectorAll<HTMLDivElement>('.section');
-  let currentActiveIndex = 0;
+function changeSection(direction: 1 | -1) {
+  if (isAnimating) return;
 
-  sections.forEach((item, index) => {
-    if (item.classList.contains('active')) {
-      currentActiveIndex = index;
-    }
-  });
-  let st = window.pageYOffset || document.documentElement.scrollTop;
+  const sections =
+    document.querySelectorAll<HTMLDivElement>('.section');
 
-  if (st > lastScrollTop) {
-    if (currentActiveIndex === elements.length - 1) {
-      return;
-    }
-    elements.forEach((item, index) => {
-      if (index === currentActiveIndex) {
-        item.classList.remove('active');
-      }
-      elements[currentActiveIndex + 1].classList.add('active');
-    });
-  } else if (st < lastScrollTop) {
-    if (currentActiveIndex === 0) {
-      return;
-    }
-    elements.forEach((item, index) => {
-      if (index === currentActiveIndex) {
-        item.classList.remove('active');
-      }
-      elements[currentActiveIndex - 1].classList.add('active');
-    });
+  const current =
+    [...sections].findIndex(section =>
+      section.classList.contains('active')
+    );
+
+  const next = current + direction;
+
+  if (
+    next < 0 ||
+    next >= sections.length
+  ) {
+    return;
   }
-  lastScrollTop = st <= 0 ? 0 : st;
+
+  isAnimating = true;
+
+  const enterClass =
+    direction > 0
+      ? 'enter-from-bottom'
+      : 'enter-from-top';
+
+  const leaveClass =
+    direction > 0
+      ? 'leave-to-top'
+      : 'leave-to-bottom';
+
+  // Prepare next section
+  sections[next].classList.add(
+    'active',
+    enterClass
+  );
+
+  // Animate current section out
+  sections[current].classList.add(
+    leaveClass
+  );
+
+  setTimeout(() => {
+    sections[current].classList.remove(
+      'active',
+      leaveClass
+    );
+
+    sections[next].classList.remove(
+      enterClass
+    );
+
+    isAnimating = false;
+  }, ANIMATION_TIME);
 }
 
-function mouseWheelHndler(event: any) {
-  const sections = document.querySelectorAll<HTMLDivElement>('.section');
-  const elements = document.querySelectorAll<HTMLDivElement>('.section');
-  let currentActiveIndex = 0;
+function wheelHandler(event: WheelEvent) {
+  event.preventDefault();
 
-  sections.forEach((item, index) => {
-    if (item.classList.contains('active')) {
-      currentActiveIndex = index;
-    }
-  });
+  if (isAnimating) return;
 
-  let e = window.event || event;
-  let delta = Math.max(-1, Math.min(1, event.wheelDelta || -e.detail));
-  if (delta > 0) {
-    if (currentActiveIndex === 0) {
-      return;
-    }
-    elements.forEach((item, index) => {
-      if (index === currentActiveIndex) {
-        item.classList.remove('active');
-      }
-      elements[currentActiveIndex - 1].classList.add('active');
-    });
-  } else {
-    if (currentActiveIndex === elements.length - 1) {
-      return;
-    }
-    elements.forEach((item, index) => {
-      if (index === currentActiveIndex) {
-        item.classList.remove('active');
-      }
-      elements[currentActiveIndex + 1].classList.add('active');
-    });
-  }
+  // ignore tiny trackpad movement
+  if (Math.abs(event.deltaY) < 20) return;
+
+  changeSection(
+    event.deltaY > 0 ? 1 : -1
+  );
 }
 
-function touchHandler(event: TouchEvent) {
-  const sections = document.querySelectorAll<HTMLDivElement>('.section');
-  const elements = document.querySelectorAll<HTMLDivElement>('.section');
-  let currentActiveIndex = 0;
+function touchStartHandler(event: TouchEvent) {
+  touchStartY =
+    event.changedTouches[0].clientY;
+}
 
-  sections.forEach((item, index) => {
-    if (item.classList.contains('active')) {
-      currentActiveIndex = index;
-    }
-  });
+function touchEndHandler(event: TouchEvent) {
+  if (isAnimating) return;
 
-  let newPos = event.changedTouches[0].clientY;
+  const touchEndY =
+    event.changedTouches[0].clientY;
 
-  const htmlEl = document.getElementById('main');
-  const bodyEl = document.getElementById('main-body');
+  const diff =
+    touchStartY - touchEndY;
 
-  if (currentActiveIndex - 1 === 0 && newPos > pos) {
-    if (htmlEl && bodyEl) {
-      htmlEl.style.overscrollBehavior = 'auto';
-      bodyEl.style.overscrollBehavior = 'auto';
-    }
-  } else {
-    if (htmlEl && bodyEl) {
-      htmlEl.style.overscrollBehavior = 'none';
-      bodyEl.style.overscrollBehavior = 'none';
-    }
-  }
+  // ignore tiny movement
+  if (Math.abs(diff) < 40) return;
 
-  if (newPos > pos) {
-    if (currentActiveIndex === 0) {
-      return;
-    }
-    elements.forEach((item, index) => {
-      if (index === currentActiveIndex) {
-        item.classList.remove('active');
-      }
-      elements[currentActiveIndex - 1].classList.add('active');
-    });
-  } else {
-    if (currentActiveIndex === elements.length - 1) {
-      return;
-    }
-    elements.forEach((item, index) => {
-      if (index === currentActiveIndex) {
-        item.classList.remove('active');
-      }
-      elements[currentActiveIndex + 1].classList.add('active');
-    });
-  }
+  changeSection(
+    diff > 0 ? 1 : -1
+  );
 }
 
 export function applySinglePageScroll() {
-  const sections = document.querySelectorAll<HTMLDivElement>('.section');
+  const sections =
+    document.querySelectorAll<HTMLDivElement>('.section');
+
+  if (!sections.length) return;
+
+  // reset states
+  sections.forEach(section => {
+    section.classList.remove(
+      'active',
+      'leave-to-top',
+      'leave-to-bottom',
+      'enter-from-top',
+      'enter-from-bottom'
+    );
+  });
+
+  // activate first section
   sections[0].classList.add('active');
 
-  const htmlEl = document.getElementById('main');
-  const bodyEl = document.getElementById('main-body');
-
-  if (htmlEl && bodyEl) {
-    htmlEl.style.overscrollBehavior = 'auto';
-    bodyEl.style.overscrollBehavior = 'auto';
-  }
-
-  window.addEventListener('wheel', (event) =>
-    debounce(() => mouseWheelHndler(event), 250)
+  window.addEventListener(
+    'wheel',
+    wheelHandler,
+    { passive: false }
   );
 
-  window.addEventListener('touchstart', (event: TouchEvent) => {
-    pos = event.changedTouches[0].clientY;
-  });
+  window.addEventListener(
+    'touchstart',
+    touchStartHandler,
+    { passive: true }
+  );
 
-  window.addEventListener('touchmove', (event: TouchEvent) => {
-    debounce(() => touchHandler(event), 500);
-  });
+  window.addEventListener(
+    'touchend',
+    touchEndHandler,
+    { passive: true }
+  );
+}
+
+export function removeSinglePageScroll() {
+  window.removeEventListener(
+    'wheel',
+    wheelHandler
+  );
+
+  window.removeEventListener(
+    'touchstart',
+    touchStartHandler
+  );
+
+  window.removeEventListener(
+    'touchend',
+    touchEndHandler
+  );
 }

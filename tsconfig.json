@@ -1,26 +1,26 @@
 {
   "compilerOptions": {
     "target": "ESNext",
-    "module": "umd",
-    "lib": ["ESNext", "dom"],
-    "jsx": "react-jsx",
-    "noEmit": true,
-    "sourceMap": true,
-    /* Strict Type-Checking Options */
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "baseUrl": "./",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
 
-    /* Module Resolution Options */
-    "moduleResolution": "node",
-    "forceConsistentCasingInFileNames": true,
-    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+
+    "jsx": "react-jsx",
+
+    "types": ["node", "vite/client"],
+
+    "strict": true,
+    "skipLibCheck": true,
+
     "paths": {
-      "src/*": ["src/*"],
-      "components/*": ["src/components/*"],
-      "assets/*": ["src/assets/*"]
-    }
+      "src/*": ["./src/*"],
+      "components/*": ["./src/components/*"],
+      "assets/*": ["./src/assets/*"]
+    },
+
+    "noEmit": true
   },
-  "include": ["src"]
+
+  "include": ["src", "vite.config.ts"]
 }

@@ -41,6 +41,9 @@ module.exports = ({ mode } = { mode: 'production' }) => {
             },
             {
               loader: 'sass-loader',
+              options: {
+                api: 'modern'
+              }
             },
           ],
         },

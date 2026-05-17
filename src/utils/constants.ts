@@ -1,8 +1,13 @@
 export const EXPERIENCE_LIST = [
   {
+    designation: 'Software Engineer III',
+    company: 'OpenGov Inc.',
+    period: 'Mar 2024 - current',
+  },
+  {
     designation: 'UI Engineer',
     company: 'UST Product Engineering',
-    period: 'Oct 2021 - current',
+    period: 'Oct 2021 - Feb 2024',
   },
   {
     designation: 'Software Developer',
